@@ -21,21 +21,26 @@ public class Client {
 		}
 		try {
 			// Streams
+			System.out.println("*****************************************************");
+			System.out.println("****Dictionary English/Spanish and Español/Inglés****");
+			System.out.println("*****************************************************\n");
+			do{
 				InputStream inputStream = socketService.getInputStream();
 				OutputStream outputStream = socketService.getOutputStream();
 				PrintWriter outPrinter = new PrintWriter(outputStream, true);
 				BufferedReader inReader = new BufferedReader(new InputStreamReader(inputStream));
 
-				System.out.println("Introduce una palabra: ");
+				System.out.println("Introduce una palabra: (exit para salir)");
 				Scanner sc = new Scanner(System.in);
 				palabraEnviar = sc.nextLine();
 				outPrinter.println(palabraEnviar);
 				outPrinter.flush();
-
-				palabraTraducida = inReader.readLine();
-				System.out.println("Su traduccion es: "+palabraTraducida);
-
-				System.out.println("#############");
+				if(!palabraEnviar.equals("exit")){
+					palabraTraducida = inReader.readLine();
+					System.out.println("Su traduccion es: "+palabraTraducida);
+					System.out.println("#############");
+				}
+			}while(!palabraEnviar.equals("exit"));
 		} catch (UnknownHostException e) {
 			System.err.println("Error: Nombre de host no encontrado.");
 		} catch (IOException e) {
