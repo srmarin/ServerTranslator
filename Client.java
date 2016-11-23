@@ -5,6 +5,7 @@ import java.io.*;
 import java.net.Socket;
 import java.net.UnknownHostException;
 import java.util.Random;
+import java.util.Scanner;
 
 public class Client {
 	public static void main(String[] args) {
@@ -20,21 +21,25 @@ public class Client {
 		}
 		try {
 			// Streams
-			InputStream inputStream = socketService.getInputStream();
-			OutputStream outputStream = socketService.getOutputStream();
-			PrintWriter outPrinter = new PrintWriter(outputStream, true);
-			BufferedReader inReader = new BufferedReader(new InputStreamReader(inputStream));
+				InputStream inputStream = socketService.getInputStream();
+				OutputStream outputStream = socketService.getOutputStream();
+				PrintWriter outPrinter = new PrintWriter(outputStream, true);
+				BufferedReader inReader = new BufferedReader(new InputStreamReader(inputStream));
 
-			palabraEnviar = inReader.readLine();
-			outPrinter.println(palabraEnviar);
-			outPrinter.flush();
+				System.out.println("Introduce una palabra: ");
+				Scanner sc = new Scanner(System.in);
+				palabraEnviar = sc.nextLine();
+				outPrinter.println(palabraEnviar);
+				outPrinter.flush();
 
+				palabraTraducida = inReader.readLine();
+				System.out.println("Su traduccion es: "+palabraTraducida);
 
-			System.out.println("#############");
+				System.out.println("#############");
 		} catch (UnknownHostException e) {
 			System.err.println("Error: Nombre de host no encontrado.");
 		} catch (IOException e) {
-			System.err.println("Error de entrada/salida al abrir el socket.");
+			System.err.println("Error .");
 		}
 
 		// Close the socket
