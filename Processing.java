@@ -24,17 +24,18 @@ public class Processing extends Thread {
 		String stringReceived,translation;
 		try {
 			// Streams
-			inputStream = socketService.getInputStream();
-			outputStream = socketService.getOutputStream();
-			BufferedReader inReader = new BufferedReader(new InputStreamReader(inputStream));
-			PrintWriter outPrinter = new PrintWriter(outputStream, true);
+			do{
+				inputStream = socketService.getInputStream();
+				outputStream = socketService.getOutputStream();
+				BufferedReader inReader = new BufferedReader(new InputStreamReader(inputStream));
+				PrintWriter outPrinter = new PrintWriter(outputStream, true);
 
-				stringReceived = inReader.readLine();
-				System.out.println("Palabra recibida");
-				stringReceived = stringReceived.toLowerCase();
-				translation = readBD(stringReceived);
-				outPrinter.println(translation);
-
+					stringReceived = inReader.readLine();
+					System.out.println("Palabra recibida");
+					stringReceived = stringReceived.toLowerCase();
+					translation = readBD(stringReceived);
+					outPrinter.println(translation);
+				}while(true);
 		} catch (UnknownHostException e) {
 			System.err.println("Error: Nombre de host no encontrado.");
 		} catch (IOException e) {
